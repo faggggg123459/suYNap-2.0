@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>suYNap</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 2px solid #ddd;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #e63946;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #e63946;
+        }
+
+        .welcome {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #f97f8f;
+            color: #fff;
+        }
+
+        .welcome h1 {
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .welcome p {
+            margin-bottom: 20px;
+        }
+
+        .welcome button {
+            background-color: #ffffff;
+            color: #e63946;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .welcome button:hover {
+            background-color: #f2f2f2;
+            transform: scale(1.05);
+        }
+
+        .catalog {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .catalog h2 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            color: #e63946;
+        }
+
+        .catalog-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .catalog-item {
+            background-color: #fff;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .catalog-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .catalog-item img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .catalog-item p {
+            font-size: 1em;
+            margin: 10px 0;
+        }
+
+        .catalog-item span {
+            display: block;
+            font-weight: bold;
+            color: #e63946;
+            margin-top: 5px;
+        }
+
+        .catalog-item button {
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .catalog-item button:hover {
+            background-color: #d62839;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .modal button {
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .modal button:hover {
+            background-color: #d62839;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+
+        .modal-overlay.active, .modal.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">suYNap</div>
+        <nav class="nav">
+            <a href="#">Головна</a>
+            <a href="#">Каталог</a>
+            <a href="#">Обнови</a>
+            <a href="#">Знижки</a>
+            <a href="#" id="open-modal">Реєстрація</a>
+        </nav>
+    </header>
+
+    <section class="welcome">
+        <h1>Вітаємо вас в suYNap!</h1>
+        <p>Магазин брендів з кращою якістю та стилем</p>
+        <button>Переглянути каталог</button>
+    </section>
+
+    <section class="catalog">
+        <h2>Спеціально для вас!</h2>
+        <div class="catalog-container">
+            <div class="catalog-item">
+                <img src="data:image/webp;base64,UklGRrYQAABXRUJQVlA4IKoQAADQQQCdASq0AIMAPk0gjkUioiEVOk00KATEtIULZCGNI7QdAO2X+qeCvh59Hft37b+u/i/6+vkv1F/lv3p/Rf3z9xPy9+U/+V4N/C7/M9QL8S/lv91/LT8w/pw+S7bfWv8h/1vUa9jPoX+p/t/7y/5b5UZmvhP/h+4H+sf+74330b2APzh6Cv/N/mvzS9un0b/4v8d8A/8v/q3+8/wH+S/93xw+wf9w///7rH7Qf+Y4k9Xq9Xq9Wj4juBfP+54068Pxkeer1a+HV1KuUwUJ8RvxEisgfy24mn1N53rRkVV3q8CUMqxJeMPlEfUWWX4R57e5n73dAhj68u1CBNg/t14TinW5J9LQZFUnkvZffTMPr4qSvHoqFnWCQrFq9Z3cXcFuHcPUKCmP/AYFH6tCkSAH75okE9Qj/DQtPdXhy4Taq67/9cYhfrbEHkozhlJgu0V1KUF7GF7UOzwGS6pmB0ib9c/JGi86gccQIubJM9W2YpbLnJPDQ4zvYJD8Eid1Ax7kDXh7aD+r8Ns4MssycXuQXrE4ooFJGTZJHZ7u+smHEhjRYJcfCiZ20ZjQAhk4RPMLOsN6Jxi9c2gqC6C6G3n70bsoLb2XL0cxE3+a1rJBSZCUa41TH75AIs8jE+q3czyf+Lyn7XgEjJiarmgSnlht+l/5+gISB7p0LkSry2+9Sm4kdbObPH0sjCbssBPVrzUajUajUZsAAP7/uFoAGFy2vZvdYfy4qKuz0naXHPpn7I2VJ7O0fB0cPIydR7Pd8jNP9on6VTnb6xwqyhm9l0e45AItN7bZdX4+6rAcSKhPr13N99P95DKOqYeQINN5B+Q0uKhF+hrxDa3LrBiGagP8j28a5gWwra60IbmYtPckZkfr8P8GvziFwDy6aX8ETvo4GGwCkiHMXRlOfVlhILUyqj9LhJgxu8t4gxi4TToVgCrFT7O07t1WBmzXqe+vaAFwrW87J5UDWizE8wGNmRI8JRdxeAaD5AQHryNQJ9pRZmyoiMAxeL7rsNDib65VPmvLwMr4uR06YWxeQuPhV0T0sY+DXe5IaB9psG/u9nSYW1u9hcj6UZzaZt/2tIRAXd/uCiBR4W8erZM+JrdgP/sCeqm/gKvc2+uGfXn6A3ny2LtLtP5Nkz0upnCH0YqJhPiHyQla4erLfpluwDdPodknn5AXeA0zM7JmA6K7PwxhFRTQR6dmdRqSkcm/dgwmzRULK1gc6m1moH3rvxeAiTiQJ0b1zjZQQ+Mqvxom2ZmPoy5Rzc2pUc5v5KEWFcNNgobOzhHakBRsTRRDR7eBvRpxcymjD8GRb9gwECfIaNKxLz0zEhVdFfW3DIeAvj+//jgejJQxpwh7uKvdm/evuHE8Me4EG+6jvV1ZaORipsoFEo4ijw1rHngTrD2M4VBtmwbKRwui3XcD/lPSkzXHJePynAiZ2QlX/TxHWjetDD8QeiEet9tVhzugCUgJbLJzTcqvB2b8FWWS7wqL42BHjXok1yGAU1Lz5v9Vz9E8pRKkY911fwqRI876MJIL/R8SEicf26A4CWx73SE7cx6zvjH5AACGB4ZUuMbe/R8ubEUT3a/Fa+x9rktuGM2s5LyTwUXi4cCiOv4HTWruxSxpk7LvqTErg1dgMvG0soWuHlszArIgl7rv6oUmeHbfyCTbDsbJg6d//pmplcE42JVpk2zScOpypMNLnkPn7+D/P5P7NksejEm/VFcF6RVAhNIFFcz7OBVnpNWNgSflQDiGNGNoy3KEKY9+hezC1QpgW57/TfhT/vj4i5T3r8sLnMTNlR15MmNu6n55+NGSPa729u2SDTPRQCKICI89qZhD+JIk9yv7k61fLWYXtXaMKrZHLJxVnJBNTskFiFvk+o7yo5yQR20grAoW4Gzj+GbotbEmzb4dwLL6JUIXgGNHnQU5K31T5e4S3loRLpxJQnZn3MzHO4lDcb+VNug6PSJmEy1RKQdh0uApVXEdbpACcamdsSqJuBHfZgl4cNHuTeVrRwyc6/vzYbSePqIKqljJjlzKJp38nFEKCKzZaC49iK3ekYKYWRtNDQj2CmiEKUQq9IW4/5Jf+GZS6V3olQ1jhFnqL88CbkKFBPxdGTWfqHSojf4Wig+8RD4C2/raBVWNX7bCfNKJ84ewgFOytC+O6DgMEYlzoBfBmcnflU505dhqkw6ZMlgJojzSmbvg7fBIo1WqDwkrQvJv+1BVaeZ/iksu+HRY3IOoCJpR8EDx6i0aNG1esQtEtsVs+W6hSRjqztb4U6v4KI6ZABRP/ejY9mmhEEE5CiaQAYsdil1cpXsQlb2/4qvpIr2ABuiOU1IfvER4YlZVTtoer7FZS8akBJFAxEsADNWW8tu9yBEn3rk1JezkzF32rM/pHArZNjJNAMak229yh6I9+SVOgssYUF6n6+8iMeF92yIwiQcSkOcXqcTk+EuKLxY1ssJwKyoWd+tRr5rfwYEkJvM4DUv8ebInxQb/Jbg3psfoG8ZBFQATWpYR9mSv6inZNGHoXFLdZHTO9s1OwWcuFoGRiWes8yO3snE4B8XMFTbVf8chscBqj8pXz/MbPfjf7iMKLQYZ1wS1fd8w7MgQgVQKt0wPfazd975Uayg+5aH+nWB9uuh3l7Pi2YKWLmHrYJAo7M6IcvCNsQi8WBf9QBJilePvwSjrxNPWSBK6/zwdPhlaqx6nXQZq9D10xqVhimVnxd+vmcme2AVXEt1h49mCS6olEazF6ajkzP7KkzxBdUwIENX70Dj3R57KARlFJcXAr42cJupbUb6H+wubVtyE9UzFGcqdpxpiv3/8RRGFRZgTFla1Mh0YmRXHWxvzA3mrqFKmFTlozmivgiiYoJTWkyO1F/6TCmPJvQOuT+ki4scFfHyabLRP69xFwYyt1mL0rWM7h1ku2Y5XX01CFnVgN8tvKRacOFhaYYgPDaeAr0rDkUmHRzT9Q2bLL1noVD+w0iX0aL6V7jlwWdARjAzZC9H1Xsiy38TPXngbUO/Rhh3NmII88/NaAGDXPvaXduulTkppWxIJtJXan8n5uhKjHudI+a9sD83/5lBWD3JhbGVv88UnITOPBArD2w298MPRhLRNhL1c3VgeALrBpAS9BP1aqgKqh+WfemeCf2IK+PnJU5XAvWNWquPMEwcaLLtsR2+T4phy32Ur0tybMICbt4UzjjMl1wITeDPXi/RXAgw2SA6gs9pgeRRxKLVpcDz1egsZ3R1Eqfib+YzlEE1qmAICo3wZJFN+qmuskYqtmNdaJN08XLMAIa5Xc5OEQqRU31OEqoVSugwBfUsnUCgeB36jQA3LBl2uArOxgRXxlYaVldS2mZZ7fpprfgR9yDBECzUVUC0XxudgPtCwcQsHSW7TuhfuI/wbTyiaBjAEHeUzolQUYQYfLI9A6goS+8xv4NQb59X0eqxQbevSzAlH4kJEe8Se1YwPCFCTPys/oVM5VYL1RJZa3cQcRqtKJRsdQ89eXWox1d6rrtWqwZE4GPQmszKfhLM+EuAfEp2SO6Jl5dQwFThHpm1WGX0PLH2MDs40F+o8Ort+vOOE9kWTsrVOSi4lGI+QFcNku3b10Swt//o8XGs9Ee3GylfGgXTFN2ExtGoaYuKi3JOhtbZ0kNQnf/Ius5r/2F6pRGb5Io/vb8O/H15E0BR/RIH1VJkNMTZBUUi21gapsV7iL3bSFRGv/L9jb/8md0x+BkFj4Fd0vLWdV88Fc11gDPiX1Dg/Q/Tpu/edhsdibsH/ppKjaPmEEkM3zMNgYKBE3QYH+MzYadTr9n7+KRzaqMHPKO9roGB+G0ewgmoAWNt2sXihVRrlPUU8tIE9nkzvwv1nyWGg/iTNlBzXmVkgca29iZaytpcPfsnLd590VqJO6ufWLY+QosguiWVPu9VYNjbDj1uLD5M5stTDN7K0vVj2iTROydvzEdfEanwBwD6lFHy4NkohOq7iBBt4BunLlk46+DDkFntZ2ceCOPBqPaVLFInupQwlSEPoJsAkZwIyp1a6UATwkrMuMrcl0SGsAELdgiwEM6ORs8LV8jsVKwdG2ojcoEerMbgOz3Fn8LOgEFUsRQuWgipJBemz6uXVFdOmfc9BZ9Lj6AzmBp4TqLrqE9IzZU+b/zdAp3yuBqlI4WSnK2HtmkqVMfVOlvrEXNJuUiSmZonwQmcPfpg3WGW7E0nNZPujOG0FZHxCI/PxS81IEzoA8mC6TTyPCmmRvULxZbKncJdMQ3Ozb8ma6WRWenB+dWbpKSq/3IUo44Y/EwnDjpjA4esg+24PjnxRVtJN6stu/E0IO0fOwTljklyQ8cG4uUcc2bp6PtTAzM4/EvcKKjH7AAa2EIpMWz771LLo7ceQf/zcHz/3g6Zb4GRlnNGnXegg+/5sx6laIGpJUeFYwOaIbouZfW0WvA5Bp/PImHjFlthvuWskEHyKfrqL2620wgLcPpsykfkpUm99PJWY6PGiuKYN1WASaEDSSi8Hjf9qMIq6Z4Y1zr8fZNq/izPhyvmR9owpSR1nAk1deSey/h6aa9Rj/6h0rQJ82I04qKBJNs27VnFdtTRlqqlCv2TdCSyHr6ziW0X3oGH2c54XAAECxIQConlUSEHNGbO9uarBETwcXw+qpmuKp6XqPSnxgXfTYajAfQdzPncrwCMtBu3XIVQmWVVWJlj3ualJKRFYKt0Ywe2QdcPYu5t9Xj+s2W79tpTCO6i5Bt4TaNSJZsaWRaIj+sEizZZX0fTsPWqiXflYxzw7ZodS/5jtYARsSc/nTW5x0jKJCYkPeQXw6zHASIMJdPkWpoh51UY85x8taMwPFh3VOM02qZGjONbAOyJF287M7kpL5/Wfs84nyZAADZ22L60JxBBkBSW0qR1cYJoluPaBs52LRp6vdGUhbAuI2z9aJvOS7kkpSAx0Ln+HcVikU0/n01sXkhIAQ8b65GYpz06HIRXChIOPsNL5o0ePDSF1sf6Q2shmH8xZSQvQjAZjD8wY0GpYjhnNFLXf7Gl5in93eTqXK92ucBDlkULqQiIb9MZTwQM+wL7ySUzwF75qkr1ExjAlhUjEGVTeXUoTOjrF+HYltp36LQowSXiwIM0FhEMZOAYBBZy1dipeF2sObF8ENpCqllt/Auwa8wHNiejuE/4Kp7erqhotIYZt+/+eP/0pFp17AY89pwGqAmgKCZZ19CKk0oNwHr9uz32X60aMHNxHlGJDEZKJ0pu5Uh7YjjhK8cRpZIblrUYpYhIZU+YolC/1RWhMmAKbLUCxBgFk8YjsB9uHhtupE4VMrcejOTMEJ4wSu23q8QRQBqkcBlvL1tTM7w6LqrIF97fpOEoB+EpEDcTniygZPdF7yPlBXGQTnaH5pm1SeORVyzZQF+tSpl5wvHHRng1ofVkV9hpfk7Y5WidTTydHpT0H5Jul3kt+4f9lag244odGPfaNjGHKdTWRkSsbojv/SANoOMFYCvaRYxbt/eF/a/d4xSv/j8yh3MLr4XqRfXXdmKlwK5maaU53y6dbJ5xk4iJXRQpoILsHmQFbCQ5JpmpiSWLtviB/Gi8uNoqfd0wTKtHjkWHo1e28mXuyJgP64EMtH81dYMI78sRTiCoLIvazBg0AWS/i9ILyBgrhBuSaqwCwDzHoPP7a95hrI/MZ/ypioa4wpGND304EuIhjD61kv1HeHcsTwdgLnIIr5tVSzpAlDakEDAAAAAAAAAA=" alt="Товар 1">
+                <p>Кросівки Nike Air Max</p>
+                <span>4000 грн</span>
+                <button>Купити</button>
+            </div>
+            <div class="catalog-item">
+                <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcQvA3bE3E0w1ulcPyBKCXCt5jY1KNfc7kG9DfeKVPcZU2I1rlYeeDPKIhHM-T82DBhdprXVSPCQ0-0StmY3H-hnf027RYIu6ZsL7gyVFjgWoFGbBHBZX85OM10&usqp=CAc" alt="Товар 2">
+                <p>Куртка The North Face</p>
+                <span>7500 грн</span>
+                <button>Купити</button>
+            </div>
+            <div class="catalog-item">
+                <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTES15FE5Jw02eWrLnxDA23STrmEoxzqzE60v_fbl19BwFDqyNyk436vm-J-_UcyfAyHii91hMhFvs7sae5jIld_yiaDD9DrwxwKN2upZ4L5SBSJMR_iwPqTW36XzaR6sJ3N8giMwA&usqp=CAc" alt="Товар 3">
+                <p>Худі Ellesse</p>
+                <span>3200 грн</span>
+                <button>Купити</button>
+            </div>
+            <div class="catalog-item">
+                <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQNduz4So9xMNXg__Suorq8xcdSvOp0SSu02y3-F7dMxNm57fwlyckIXaZ5LuRde7YOaFzAKN5dCMlcsiYZLSW1CibArMJQKvA7T68ueIRaxeU7Q-kRs91MNly3lHy6yZcTxl48gCF7&usqp=CAc" alt="Товар 4">
+               
+                <p>Светр Adidas</p>
+                <span>1200 грн</span>
+                <button>Купити</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 suYNap. Всі права захищені.</p>
+    </footer>
+
+    <!-- Modal -->
+    <div class="modal-overlay"></div>
+    <div class="modal">
+        <h2>Реєстрація</h2>
+        <input type="text" placeholder="Ваше ім'я">
+        <input type="email" placeholder="Ваш email">
+        <input type="password" placeholder="Пароль">
+        <button>Зареєструватись</button>
+    </div>
+
+    <script>
+        const openModal = document.getElementById('open-modal');
+        const modal = document.querySelector('.modal');
+        const overlay = document.querySelector('.modal-overlay');
+
+        openModal.addEventListener('click', (e) => {
+            e.preventDefault();
+            modal.classList.add('active');
+            overlay.classList.add('active');
+        });
+
+        overlay.addEventListener('click', () => {
+            modal.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+    </script>
+</body>
+</html>
