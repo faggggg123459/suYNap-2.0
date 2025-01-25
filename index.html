@@ -4,7 +4,183 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>suYNap</title>
-10px 0;
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+
+        header {
+            background-color: #ffffff;
+            border-bottom: 2px solid #ddd;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #e63946;
+        }
+
+        .nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav a {
+            text-decoration: none;
+            color: #333;
+            font-size: 1em;
+            transition: color 0.3s;
+        }
+
+        .nav a:hover {
+            color: #e63946;
+        }
+
+        .welcome {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #f97f8f;
+            color: #fff;
+        }
+
+        .welcome h1 {
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .welcome p {
+            margin-bottom: 20px;
+        }
+
+        .welcome button {
+            background-color: #ffffff;
+            color: #e63946;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .welcome button:hover {
+            background-color: #f2f2f2;
+            transform: scale(1.05);
+        }
+
+        .catalog {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .catalog h2 {
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            color: #e63946;
+        }
+
+        .catalog-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .catalog-item {
+            background-color: #fff;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .catalog-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .catalog-item img {
+            width: 100%;
+            border-radius: 10px;
+            margin-bottom: 10px;
+        }
+
+        .catalog-item p {
+            font-size: 1em;
+            margin: 10px 0;
+        }
+
+        .catalog-item span {
+            display: block;
+            font-weight: bold;
+            color: #e63946;
+            margin-top: 5px;
+        }
+
+        .catalog-item button {
+            background-color: #e63946;
+            color: #fff;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .catalog-item button:hover {
+            background-color: #d62839;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            margin:10px 0;
             border: 1px solid #ddd;
             border-radius: 5px;
         }
